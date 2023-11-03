@@ -9,24 +9,18 @@ jobs:
   run-linters:
     name: Lint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Install NPM Packages
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - run: npm install
       - run: npm run lint
   hello-world-job:
     needs: run-linters
     runs-on: ubuntu-latest
     steps:
-      - run: echo "$(cat hello_world.txt)"
+      - run: echo "Hello"
     
