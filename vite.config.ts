@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     VITE_BASE_URL: process.env.VITE_BASE_URL,
     ...loadEnv(mode, process.cwd(), 'VITE_'),
   };
+  console.log(mode, env.VITE_BASE_URL);
   return {
     plugins: [react()],
     test: {
