@@ -47,6 +47,8 @@ jobs:
   deploy:
     needs: run-tests
     runs-on: ubuntu-latest
+    env:
+      VITE_BASE_URL: ${{ vars.VITE_BASE_URL }}
     permissions:
       contents: write
       pages: write
