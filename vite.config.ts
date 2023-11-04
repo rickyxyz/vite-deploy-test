@@ -5,10 +5,10 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig(({ mode }) => {
-  const env = {
-    VITE_BASE_URL: process.env.VITE_BASE_URL,
-    ...loadEnv(mode, process.cwd(), 'VITE_'),
-  };
+  const env =
+    mode === 'production'
+      ? { VITE_BASE_URL: process.env.VITE_BASE_URL }
+      : { ...loadEnv(mode, process.cwd(), 'VITE_') };
   console.log(mode, env.VITE_BASE_URL);
   return {
     plugins: [react()],
@@ -17,6 +17,6 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       setupFiles: ['setupTests.ts'],
     },
-    base: mode === 'production' ? env.VITE_BASE_URL : '/',
+    base: env.VITE_BASE_URL ?? '/',
   };
 });
