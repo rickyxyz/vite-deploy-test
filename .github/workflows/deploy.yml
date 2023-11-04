@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-linters:
-    name: Lint
+    name: run-linters
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -18,8 +18,29 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run lint
-  hello-world-job:
+  build:
+    name: build
     needs: run-linters
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello"
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install NPM Packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build
+  run-tests:
+    name: run-tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install NPM Packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run test
